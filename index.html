@@ -1,440 +1,127 @@
-import React, { useState, useEffect } from 'react';
-import { Sparkles, Zap, Flame, Star, Heart, Eye, Snowflake } from 'lucide-react';
+<!DOCTYPE html>
+<html lang="es">
 
-const ModernWinterDesign = () => {
-const [activeDesign, setActiveDesign] = useState(0);
-const [isAnimating, setIsAnimating] = useState(false);
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Arctic Luxe - Winter Drop 2025</title>
+    <style>
+        body {
+            margin: 0;
+            font-family: 'Segoe UI', sans-serif;
+            background: linear-gradient(135deg, #0f0c29, #302b63, #24243e);
+            color: #fff;
+            overflow-x: hidden;
+        }
 
-useEffect(() => {
-const interval = setInterval(() => {
-setIsAnimating(true);
-setTimeout(() => setIsAnimating(false), 300);
-}, 3000);
-return () => clearInterval(interval);
-}, []);
+        header {
+            text-align: center;
+            padding: 4rem 2rem 2rem;
+        }
 
-const designs = [
-{
-name: "PUFFER CLOUD COAT",
-style: "Oversized Dream",
-colors: ["#FF6B9D", "#C44569", "#F8B500"],
-vibe: "Y2K meets luxury",
-price: "$450"
-},
-{
-name: "CYBER SNOW JACKET",
-style: "Tech Streetwear",
-colors: ["#00D4FF", "#0066FF", "#1A1A2E"],
-vibe: "Futuristic chic",
-price: "$380"
-},
-{
-name: "VELVET STORM COAT",
-style: "Dark Academia",
-colors: ["#2D1B2E", "#8B5A83", "#E6E6FA"],
-vibe: "Gothic elegance",
-price: "$520"
-}
-];
+        h1 {
+            font-size: 3.5rem;
+            background: linear-gradient(to right, #ff7eb3, #9b4de0, #66e3ff);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
 
-const currentDesign = designs[activeDesign];
+        p.subtitle {
+            font-size: 1.25rem;
+            color: #ccc;
+            margin-top: 0.5rem;
+        }
 
-return (
-<div className="min-h-screen bg-black text-white overflow-hidden">
-    {/* Animated background */}
-    <div className="fixed inset-0 opacity-20">
-        <div className="absolute inset-0 bg-gradient-to-br from-purple-900 via-pink-900 to-blue-900"></div>
-        <div className={`absolute inset-0 transition-all duration-1000 ${isAnimating ? 'scale-110 rotate-1'
-            : 'scale-100' }`}>
-            {[...Array(50)].map((_, i) => (
-            <div key={i} className="absolute animate-pulse" style={{ left: `${Math.random() * 100}%`, top:
-                `${Math.random() * 100}%`, animationDelay: `${Math.random() * 2}s` }}>
-                <Sparkles className="w-4 h-4 text-white opacity-30" />
-            </div>
-            ))}
-        </div>
-    </div>
+        .designs {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 2rem;
+            padding: 2rem;
+        }
 
-    {/* Header */}
-    <div className="relative z-10 pt-12 pb-8 text-center">
-        <div className="mb-4">
-            <h1 className="text-6xl font-black mb-2">
-                <span
-                    className="bg-gradient-to-r from-pink-400 via-purple-400 to-blue-400 bg-clip-text text-transparent">
-                    ARCTIC LUXE
-                </span>
-            </h1>
-            <p className="text-2xl font-light text-gray-300">WINTER 2025 COLLECTION</p>
-        </div>
+        .card {
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 1rem;
+            width: 280px;
+            padding: 1.5rem;
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
 
-        {/* Design selector */}
-        <div className="flex justify-center gap-4 mb-8">
-            {designs.map((design, index) => (
-            <button key={index} onClick={()=> setActiveDesign(index)}
-                className={`px-6 py-3 rounded-full font-bold transition-all duration-300 ${
-                activeDesign === index
-                ? 'bg-gradient-to-r from-pink-500 to-purple-500 shadow-lg scale-105'
-                : 'bg-white/10 hover:bg-white/20'
-                }`}
-                >
-                {design.name.split(' ')[0]}
-            </button>
-            ))}
-        </div>
-    </div>
+        .card:hover {
+            transform: scale(1.05);
+            box-shadow: 0 0 20px rgba(255, 255, 255, 0.1);
+        }
 
-    {/* Main design showcase */}
-    <div className="relative z-10 container mx-auto px-6">
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+        .color-strip {
+            height: 8px;
+            border-radius: 4px;
+            margin: 1rem 0;
+        }
 
-            {/* Fashion illustration */}
-            <div className="relative">
-                <div
-                    className="bg-gradient-to-br from-white/5 to-white/10 backdrop-blur-lg rounded-3xl p-8 border border-white/20">
-                    <div className="relative">
-                        {/* Model silhouette with modern design */}
-                        <svg width="100%" height="600" viewBox="0 0 400 600" className="drop-shadow-2xl">
-                            {/* Background glow */}
-                            <defs>
-                                <radialGradient id="glow" cx="50%" cy="30%">
-                                    <stop offset="0%" stopColor={currentDesign.colors[0]} stopOpacity="0.3" />
-                                    <stop offset="100%" stopColor={currentDesign.colors[1]} stopOpacity="0.1" />
-                                </radialGradient>
-                            </defs>
-                            <rect width="400" height="600" fill="url(#glow)" rx="20" />
+        .price {
+            color: #4effa8;
+            font-weight: bold;
+            font-size: 1.2rem;
+        }
 
-                            {/* Model base */}
-                            <circle cx="200" cy="70" r="25" fill="#E8C4A0" stroke={currentDesign.colors[0]}
-                                strokeWidth="2" />
+        footer {
+            text-align: center;
+            padding: 3rem 1rem;
+            background: linear-gradient(to right, #4b0082, #8a2be2);
+        }
 
-                            {/* Hair - modern bob */}
-                            <path d="M 175 50 Q 200 35 225 50 Q 230 65 225 70 Q 200 75 175 70 Q 170 65 175 50"
-                                fill={currentDesign.colors[2]} stroke={currentDesign.colors[1]} strokeWidth="1" />
+        footer h3 {
+            font-size: 1.8rem;
+        }
 
-                            {activeDesign === 0 && (
-                            /* PUFFER CLOUD COAT */
-                            <>
-                                {/* Main puffer body */}
-                                <path
-                                    d="M 120 130 Q 200 120 280 130 Q 285 200 280 280 Q 280 350 275 420 Q 200 430 125 420 Q 120 350 115 280 Q 115 200 120 130"
-                                    fill={currentDesign.colors[0]} stroke={currentDesign.colors[1]} strokeWidth="3"
-                                    opacity="0.9" />
+        footer p {
+            color: #ddd;
+            margin-bottom: 1rem;
+        }
+    </style>
+</head>
 
-                                {/* Puffer segments */}
-                                {[150, 180, 210, 240, 270, 300, 330].map((y, i) => (
-                                <ellipse key={i} cx="200" cy={y} rx="75" ry="12" fill="none"
-                                    stroke={currentDesign.colors[2]} strokeWidth="2" opacity="0.7" />
-                                ))}
+<body>
 
-                                {/* Oversized hood */}
-                                <path
-                                    d="M 140 120 Q 200 100 260 120 Q 270 140 260 160 Q 200 170 140 160 Q 130 140 140 120"
-                                    fill={currentDesign.colors[1]} stroke={currentDesign.colors[0]} strokeWidth="2" />
+    <header>
+        <h1>ARCTIC LUXE</h1>
+        <p class="subtitle">WINTER 2025 COLLECTION</p>
+    </header>
 
-                                {/* Puffy sleeves */}
-                                <ellipse cx="100" cy="200" rx="25" ry="60" fill={currentDesign.colors[0]}
-                                    stroke={currentDesign.colors[1]} strokeWidth="2" />
-                                <ellipse cx="300" cy="200" rx="25" ry="60" fill={currentDesign.colors[0]}
-                                    stroke={currentDesign.colors[1]} strokeWidth="2" />
-
-                                {/* Chain details */}
-                                <circle cx="180" cy="160" r="8" fill={currentDesign.colors[2]} stroke="gold"
-                                    strokeWidth="2" />
-                                <circle cx="220" cy="160" r="8" fill={currentDesign.colors[2]} stroke="gold"
-                                    strokeWidth="2" />
-                            </>
-                            )}
-
-                            {activeDesign === 1 && (
-                            /* CYBER SNOW JACKET */
-                            <>
-                                {/* Tech jacket body */}
-                                <path d="M 130 130 Q 200 125 270 130 L 275 380 Q 200 385 125 380 Z"
-                                    fill={currentDesign.colors[0]} stroke={currentDesign.colors[2]} strokeWidth="2" />
-
-                                {/* LED strip details */}
-                                <rect x="140" y="150" width="120" height="4" fill="#00FFFF" rx="2" opacity="0.8">
-                                    <animate attributeName="opacity" values="0.8;1;0.8" dur="2s"
-                                        repeatCount="indefinite" />
-                                </rect>
-                                <rect x="140" y="200" width="120" height="4" fill="#00FFFF" rx="2" opacity="0.6">
-                                    <animate attributeName="opacity" values="0.6;1;0.6" dur="1.5s"
-                                        repeatCount="indefinite" />
-                                </rect>
-
-                                {/* Asymmetric zipper */}
-                                <path d="M 160 140 L 180 380" stroke={currentDesign.colors[1]} strokeWidth="6" />
-
-                                {/* Tech panels */}
-                                <rect x="190" y="180" width="60" height="40" fill={currentDesign.colors[2]}
-                                    stroke="#00FFFF" strokeWidth="1" rx="5" />
-                                <rect x="190" y="240" width="60" height="40" fill={currentDesign.colors[2]}
-                                    stroke="#00FFFF" strokeWidth="1" rx="5" />
-
-                                {/* Sleeves with tech details */}
-                                <ellipse cx="110" cy="220" rx="20" ry="70" fill={currentDesign.colors[0]}
-                                    stroke={currentDesign.colors[2]} strokeWidth="2" />
-                                <ellipse cx="290" cy="220" rx="20" ry="70" fill={currentDesign.colors[0]}
-                                    stroke={currentDesign.colors[2]} strokeWidth="2" />
-
-                                {/* Wrist tech */}
-                                <rect x="100" y="285" width="20" height="8" fill="#00FFFF" rx="4" />
-                                <rect x="280" y="285" width="20" height="8" fill="#00FFFF" rx="4" />
-                            </>
-                            )}
-
-                            {activeDesign === 2 && (
-                            /* VELVET STORM COAT */
-                            <>
-                                {/* Dramatic coat silhouette */}
-                                <path
-                                    d="M 110 130 Q 200 125 290 130 Q 295 200 300 280 Q 305 360 310 440 Q 200 450 90 440 Q 95 360 100 280 Q 105 200 110 130"
-                                    fill={currentDesign.colors[0]} stroke={currentDesign.colors[1]} strokeWidth="2" />
-
-                                {/* Velvet texture simulation */}
-                                <defs>
-                                    <pattern id="velvet" patternUnits="userSpaceOnUse" width="4" height="4">
-                                        <rect width="4" height="4" fill={currentDesign.colors[0]} />
-                                        <circle cx="2" cy="2" r="0.5" fill={currentDesign.colors[1]} opacity="0.3" />
-                                    </pattern>
-                                </defs>
-                                <path
-                                    d="M 110 130 Q 200 125 290 130 Q 295 200 300 280 Q 305 360 310 440 Q 200 450 90 440 Q 95 360 100 280 Q 105 200 110 130"
-                                    fill="url(#velvet)" opacity="0.7" />
-
-                                {/* Gothic collar */}
-                                <path
-                                    d="M 150 120 Q 200 100 250 120 Q 250 135 245 140 Q 200 145 155 140 Q 150 135 150 120"
-                                    fill={currentDesign.colors[1]} stroke={currentDesign.colors[2]} strokeWidth="2" />
-
-                                {/* Statement sleeves */}
-                                <ellipse cx="85" cy="220" rx="30" ry="80" fill={currentDesign.colors[0]}
-                                    stroke={currentDesign.colors[1]} strokeWidth="2" />
-                                <ellipse cx="315" cy="220" rx="30" ry="80" fill={currentDesign.colors[0]}
-                                    stroke={currentDesign.colors[1]} strokeWidth="2" />
-
-                                {/* Ornate buttons */}
-                                <circle cx="200" cy="180" r="6" fill={currentDesign.colors[2]} stroke="silver"
-                                    strokeWidth="2" />
-                                <circle cx="200" cy="210" r="6" fill={currentDesign.colors[2]} stroke="silver"
-                                    strokeWidth="2" />
-                                <circle cx="200" cy="240" r="6" fill={currentDesign.colors[2]} stroke="silver"
-                                    strokeWidth="2" />
-
-                                {/* Belt with statement buckle */}
-                                <rect x="110" y="290" width="180" height="12" fill={currentDesign.colors[1]} rx="6" />
-                                <rect x="190" y="285" width="20" height="22" fill="silver" rx="3" />
-                            </>
-                            )}
-
-                            {/* Boots - universal */}
-                            <ellipse cx="160" cy="520" rx="25" ry="35" fill="#1A1A1A" />
-                            <ellipse cx="240" cy="520" rx="25" ry="35" fill="#1A1A1A" />
-                            <rect x="135" y="500" width="50" height="15" fill="#333" rx="7" />
-                            <rect x="215" y="500" width="50" height="15" fill="#333" rx="7" />
-                        </svg>
-                    </div>
-
-                    {/* Floating accessories */}
-                    <div className="absolute top-4 right-4 animate-bounce">
-                        <div className="bg-gradient-to-r from-pink-500 to-purple-500 rounded-full p-3">
-                            <Sparkles className="w-6 h-6 text-white" />
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            {/* Design details */}
-            <div className="space-y-8">
-                {/* Current design info */}
-                <div
-                    className="bg-gradient-to-br from-white/10 to-white/5 backdrop-blur-xl rounded-3xl p-8 border border-white/20">
-                    <div className="flex items-center gap-4 mb-6">
-                        <div className="bg-gradient-to-r from-pink-500 to-purple-500 rounded-full p-3">
-                            <Star className="w-6 h-6 text-white" />
-                        </div>
-                        <div>
-                            <h2 className="text-3xl font-bold">{currentDesign.name}</h2>
-                            <p className="text-gray-300">{currentDesign.style}</p>
-                        </div>
-                    </div>
-
-                    {/* Color palette */}
-                    <div className="mb-6">
-                        <h3 className="text-xl font-bold mb-3 flex items-center gap-2">
-                            <Eye className="w-5 h-5 text-pink-400" />
-                            Color Story
-                        </h3>
-                        <div className="flex gap-4">
-                            {currentDesign.colors.map((color, index) => (
-                            <div key={index} className="text-center">
-                                <div className="w-16 h-16 rounded-full shadow-2xl border-2 border-white/30" style={{
-                                    backgroundColor: color }}></div>
-                                <p className="text-xs mt-2 text-gray-400">{color}</p>
-                            </div>
-                            ))}
-                        </div>
-                    </div>
-
-                    {/* Vibe & Price */}
-                    <div className="flex justify-between items-center">
-                        <div>
-                            <p className="text-gray-400">Vibe</p>
-                            <p className="text-xl font-semibold">{currentDesign.vibe}</p>
-                        </div>
-                        <div className="text-right">
-                            <p className="text-gray-400">Price</p>
-                            <p className="text-2xl font-bold text-green-400">{currentDesign.price}</p>
-                        </div>
-                    </div>
-                </div>
-
-                {/* Features */}
-                <div
-                    className="bg-gradient-to-br from-purple-900/30 to-pink-900/30 backdrop-blur-xl rounded-3xl p-8 border border-purple-500/20">
-                    <h3 className="text-2xl font-bold mb-6 flex items-center gap-2">
-                        <Flame className="w-6 h-6 text-orange-400" />
-                        Why It's Fire
-                    </h3>
-
-                    {activeDesign === 0 && (
-                    <div className="space-y-4 text-gray-300">
-                        <div className="flex items-center gap-3">
-                            <Zap className="w-5 h-5 text-yellow-400" />
-                            <span>Ultra-puffy silhouette with Y2K nostalgia</span>
-                        </div>
-                        <div className="flex items-center gap-3">
-                            <Heart className="w-5 h-5 text-pink-400" />
-                            <span>Pastel gradient that changes in sunlight</span>
-                        </div>
-                        <div className="flex items-center gap-3">
-                            <Snowflake className="w-5 h-5 text-blue-400" />
-                            <span>Warmth rated to -20°C with style</span>
-                        </div>
-                        <div className="flex items-center gap-3">
-                            <Star className="w-5 h-5 text-purple-400" />
-                            <span>Detachable chain accessories</span>
-                        </div>
-                    </div>
-                    )}
-
-                    {activeDesign === 1 && (
-                    <div className="space-y-4 text-gray-300">
-                        <div className="flex items-center gap-3">
-                            <Zap className="w-5 h-5 text-cyan-400" />
-                            <span>LED heating elements & phone charging</span>
-                        </div>
-                        <div className="flex items-center gap-3">
-                            <Heart className="w-5 h-5 text-blue-400" />
-                            <span>Smart fabric adapts to temperature</span>
-                        </div>
-                        <div className="flex items-center gap-3">
-                            <Snowflake className="w-5 h-5 text-white" />
-                            <span>Waterproof nano-coating technology</span>
-                        </div>
-                        <div className="flex items-center gap-3">
-                            <Star className="w-5 h-5 text-cyan-400" />
-                            <span>Customizable light patterns via app</span>
-                        </div>
-                    </div>
-                    )}
-
-                    {activeDesign === 2 && (
-                    <div className="space-y-4 text-gray-300">
-                        <div className="flex items-center gap-3">
-                            <Zap className="w-5 h-5 text-purple-400" />
-                            <span>Luxe velvet with dramatic silhouette</span>
-                        </div>
-                        <div className="flex items-center gap-3">
-                            <Heart className="w-5 h-5 text-pink-400" />
-                            <span>Gothic romance meets modern edge</span>
-                        </div>
-                        <div className="flex items-center gap-3">
-                            <Snowflake className="w-5 h-5 text-purple-300" />
-                            <span>Statement collar & ornate detailing</span>
-                        </div>
-                        <div className="flex items-center gap-3">
-                            <Star className="w-5 h-5 text-gray-400" />
-                            <span>Sustainable luxury materials only</span>
-                        </div>
-                    </div>
-                    )}
-                </div>
-
-                {/* Target market */}
-                <div
-                    className="bg-gradient-to-br from-green-900/30 to-blue-900/30 backdrop-blur-xl rounded-3xl p-6 border border-green-500/20">
-                    <h3 className="text-xl font-bold mb-4">Target Market</h3>
-                    <div className="grid grid-cols-2 gap-4 text-sm">
-                        <div>
-                            <p className="text-gray-400">Age Range</p>
-                            <p className="font-semibold">18-28 years</p>
-                        </div>
-                        <div>
-                            <p className="text-gray-400">Style Tribe</p>
-                            <p className="font-semibold">Fashion Forward</p>
-                        </div>
-                        <div>
-                            <p className="text-gray-400">Lifestyle</p>
-                            <p className="font-semibold">Urban Creative</p>
-                        </div>
-                        <div>
-                            <p className="text-gray-400">Values</p>
-                            <p className="font-semibold">Sustainability + Style</p>
-                        </div>
-                    </div>
-                </div>
-            </div>
+    <section class="designs">
+        <div class="card">
+            <h2>PUFFER CLOUD COAT</h2>
+            <p>Estilo: Oversized Dream</p>
+            <div class="color-strip" style="background: linear-gradient(to right, #FF6B9D, #C44569, #F8B500);"></div>
+            <p>Vibe: Y2K meets luxury</p>
+            <p class="price">$450</p>
         </div>
 
-        {/* Collection overview */}
-        <div className="mt-20 mb-12">
-            <h2 className="text-4xl font-bold text-center mb-12">
-                <span className="bg-gradient-to-r from-purple-400 to-pink-400 bg-clip-text text-transparent">
-                    Full Collection Drop
-                </span>
-            </h2>
-
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-                {designs.map((design, index) => (
-                <div key={index} className={`bg-gradient-to-br from-white/10 to-white/5 backdrop-blur-xl rounded-2xl p-6
-                    border transition-all duration-500 cursor-pointer transform hover:scale-105 ${ activeDesign===index
-                    ? 'border-pink-500/50 shadow-2xl shadow-pink-500/20' : 'border-white/20 hover:border-white/40' }`}
-                    onClick={()=> setActiveDesign(index)}
-                    >
-                    <div className="h-48 bg-gradient-to-br rounded-xl mb-4 flex items-center justify-center text-4xl"
-                        style={{ background: `linear-gradient(135deg, ${design.colors[0]}, ${design.colors[1]})` }}>
-                        {index === 0 && '🧥'}
-                        {index === 1 && '⚡'}
-                        {index === 2 && '🖤'}
-                    </div>
-                    <h3 className="font-bold text-xl mb-2">{design.name}</h3>
-                    <p className="text-gray-400 mb-3">{design.style}</p>
-                    <div className="flex justify-between items-center">
-                        <p className="text-sm text-gray-500">{design.vibe}</p>
-                        <p className="text-xl font-bold text-green-400">{design.price}</p>
-                    </div>
-                </div>
-                ))}
-            </div>
+        <div class="card">
+            <h2>CYBER SNOW JACKET</h2>
+            <p>Estilo: Tech Streetwear</p>
+            <div class="color-strip" style="background: linear-gradient(to right, #00D4FF, #0066FF, #1A1A2E);"></div>
+            <p>Vibe: Futuristic chic</p>
+            <p class="price">$380</p>
         </div>
-    </div>
 
-    {/* Footer */}
-    <div className="relative z-10 bg-gradient-to-r from-purple-900 to-pink-900 py-12 mt-20">
-        <div className="text-center">
-            <h3 className="text-3xl font-bold mb-4">Winter Never Looked This Good</h3>
-            <p className="text-xl text-gray-300 mb-6">Where fashion meets the future ❄️✨</p>
-            <div className="flex justify-center gap-6 text-3xl">
-                <span>🔥</span>
-                <span>💫</span>
-                <span>🌟</span>
-                <span>✨</span>
-            </div>
+        <div class="card">
+            <h2>VELVET STORM COAT</h2>
+            <p>Estilo: Dark Academia</p>
+            <div class="color-strip" style="background: linear-gradient(to right, #2D1B2E, #8B5A83, #E6E6FA);"></div>
+            <p>Vibe: Gothic elegance</p>
+            <p class="price">$520</p>
         </div>
-    </div>
-</div>
-);
-};
+    </section>
 
-export default ModernWinterDesign;
+    <footer>
+        <h3>Winter Never Looked This Good</h3>
+        <p>Where fashion meets the future ❄️✨</p>
+        <div style="font-size: 1.5rem;">🔥 💫 🌟 ✨</div>
+    </footer>
+
+</body>
+
+</html>
